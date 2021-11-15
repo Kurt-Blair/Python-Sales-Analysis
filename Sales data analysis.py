@@ -12,12 +12,10 @@ df = pd.read_csv('https://raw.githubusercontent.com/ine-rmotr-curriculum/FreeCod
                  skip_blank_lines=True)
 
 
-#Clean data by only selecting rows with a not null Revenue value,
-#Divide outlier Revenue Values by 10
+#Only select rows with a not null Revenue value
+
 
 df = df[df['Revenue'].notna()]
-
-df.loc[df['Revenue'] > 60000, 'Revenue'] = df.loc[df['Revenue'] > 60000, 'Revenue'] / 10
 
 
 #Create list for salesperson id and add a random value for every record in the sales data. 
@@ -64,9 +62,9 @@ plt.axis('equal')
 #Then merge the query results into 1 dataframe
 
 
-df5 = ps.sqldf("select Date,SUM(Revenue) as Bradley from df3 where Salesperson_nm = 'Bradley' AND (Date > '2013-01-01') AND (Date < '2014-01-01') group by Date")
-df6 = ps.sqldf("select Date,SUM(Revenue) as Steve from df3 where Salesperson_nm = 'Steve' AND (Date > '2013-01-01') AND (Date < '2014-01-01') group by Date")
-df7 = ps.sqldf("select Date,SUM(Revenue) as Kyle from df3 where Salesperson_nm = 'Kyle' AND (Date > '2013-01-01') AND (Date < '2014-01-01') group by Date")
+df5 = ps.sqldf("select Date,SUM(Revenue) as Bradley_revenue from df3 where Salesperson_nm = 'Bradley' AND (Date > '2013-01-01') AND (Date < '2014-01-01') group by Date")
+df6 = ps.sqldf("select Date,SUM(Revenue) as Steve_revenue from df3 where Salesperson_nm = 'Steve' AND (Date > '2013-01-01') AND (Date < '2014-01-01') group by Date")
+df7 = ps.sqldf("select Date,SUM(Revenue) as Kyle_revenue from df3 where Salesperson_nm = 'Kyle' AND (Date > '2013-01-01') AND (Date < '2014-01-01') group by Date")
 
 
 merged1 = pd.merge(df5,df6,on="Date")
@@ -77,8 +75,11 @@ merged2.set_index('Date')
 
 #merged2.head()
 
-#Plot Bradley's revenue over 2013.
+#Remove outlier values
 
-merged2.plot(x='Date', y='Bradley',title="Bradley's Revenue in 2013",ylabel='CAD');
+merged2.loc[merged2['Bradley_revenue'] > 50000, 'Bradley_revenue'] = merged2.loc[merged2['Bradley_revenue'] > 50000, 'Bradley_revenue'] / 3
 
 
+#Plot Bradley's revenue in 2013
+
+merged2.plot(x='Date', y='Bradley_revenue');
