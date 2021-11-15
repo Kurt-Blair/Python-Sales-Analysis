@@ -75,7 +75,7 @@ merged2.set_index('Date')
 
 #merged2.head()
 
-#Divide outlier revenue per day values by 3
+#Divide outlier daily revenue values for Bradley by 3
 
 merged2.loc[merged2['Bradley_revenue'] > 50000, 'Bradley_revenue'] = merged2.loc[merged2['Bradley_revenue'] > 50000, 'Bradley_revenue'] / 3
 
