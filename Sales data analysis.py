@@ -1,15 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
-
-
-
-# In[30]:
-
-
 import pandas as pd
 import numpy as np
 import random
@@ -92,36 +80,5 @@ merged2.set_index('Date')
 #Plot Bradley's revenue over 2013.
 
 merged2.plot(x='Date', y='Bradley',title="Bradley's Revenue in 2013",ylabel='CAD');
-
-
-
-
-
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
 
 
