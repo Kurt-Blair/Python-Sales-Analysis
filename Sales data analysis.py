@@ -13,7 +13,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/ine-rmotr-curriculum/FreeCod
 
 
 #Clean data by only selecting rows with a not null Revenue value,
-#Divide outlier Revenue Values by 3
+#Divide outlier Revenue Values by 10
 
 df = df[df['Revenue'].notna()]
 
